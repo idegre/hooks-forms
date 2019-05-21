@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react'
 import { reducer } from './reducer'
+import { useField } from './useField'
 
 export const useForm = () => {
 
@@ -17,6 +18,5 @@ export const useForm = () => {
 
     FormProvider = ({ children }) => <Context> { ...children } </Context>//this injects the form props into the component
 
-    
-    return [hofUseField(dispatch), FormProvider, store]
+    return [useField, FormProvider, store]
 }
