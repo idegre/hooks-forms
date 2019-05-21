@@ -5,19 +5,19 @@ import { types } from './types'
 export const useForm = () => {
 
     const initialState = {
-        form: {
-            fields: {},
-            clear: () => {} // TODO
-            
-        }
+        fields: {},
+        clear: () => {}, // TODO
+        hasErrors: false,
+        submit: () => {}, //TODO
+        pristine: false,
     }
     
     const [store, dispatch] = useReducer(reducer, initialState)
     
     const Context = React.createContext( {form: { ...store }} );
 
-    FormProvider = ({children}) => <Context>{...children}</Context>//this injects the form props into the component
+    FormProvider = ({ children }) => <Context>{ ...children }</Context>//this injects the form props into the component
 
     
-    return [hofUseField(dispatch), FormProvider, formState]
+    return [hofUseField(dispatch), FormProvider, store]
 }
