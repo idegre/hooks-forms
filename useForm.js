@@ -19,5 +19,5 @@ export const useForm = () => {
     FormProvider = ({children}) => <Context>{...children}</Context>//this injects the form props into the component
 
     
-    return [hofUseField, FormProvider]
+    return [hofUseField(dispatch), FormProvider, formState]
 }
