@@ -7,6 +7,12 @@ export const reducer = (state, {type, payload}) => {
                 state: username,
                 playload
             }
+
+        case 'pass':
+            return {
+                state: password,
+                payload
+            }
     
         default:
             return { ...state }
