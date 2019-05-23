@@ -1,20 +1,23 @@
-import React, { useReducer, Fragment } from 'react'
+import React, { useReducer } from 'react'
 import { reducer } from './reducer'
-import { useField } from './useField'
+import { HOFUseField } from './hofUseField'
+import { hofFormProvider } from './context'
 
 export const useForm = () => {
 
     const initialState = {
         fields: {},
-        clear: () => {}, // TODO
         hasErrors: false,
-        submit: () => {}, //TODO
         pristine: false,
     }
     
     const [store, dispatch] = useReducer(reducer, initialState)
 
-    FormProvider = ({ children }) => <Fragment> { children.map( Child => <Child {...store} />) } </Fragment>//this injects the form props into the component
+    console.log('store', store)
+
+    const FormProvider = hofFormProvider(store)//this injects the form props into the component
+
+    const useField = HOFUseField(dispatch, store)
 
     return [useField, FormProvider, store]
 }

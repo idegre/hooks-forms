@@ -1,21 +1,27 @@
-export const HOFUseField = ( dispatch ) => ( name, validators ) => { // HOFUseField => useField
+import React, { useReducer } from 'react'
+import { addField, changeValue, setFieldErrors } from './actions'
+
+export const HOFUseField = ( dispatch, state ) => ( fieldName, validators = [] ) => { // HOFUseField => useField
+    !state.fields[fieldName] && dispatch( addField( fieldName ))
+
     const validate = ( value ) => {
-        validators.forEach( validator => {
+        validators && validators.forEach( validator => {
             const error = validator(value)
             if (error) {
                 return error
             }
         })
     }
+
     return ( value ) => { // onchange
-        const errors = validate(value)
+        const errors = validators ? validate( value ) : null
         if ( !errors ) {
-            dispatch(changeValue({value, name}))
-            dispatch(setFieldErrors({errors: null, name}))
+            dispatch( changeValue( value, fieldName ))
+            dispatch( setFieldErrors( [], fieldName ))
             //this has to change value & set touched
         } else {
-            dispatch(changeValue({value, name}))
-            dispatch(setFieldErrors({errors, name}))
+            dispatch( changeValue( value, fieldName ))
+            dispatch( setFieldErrors( errors, fieldName ))
             // changes value & sets errors
         }
     }

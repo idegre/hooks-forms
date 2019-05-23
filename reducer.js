@@ -1,6 +1,7 @@
 
 
 export const reducer = (state, {type, payload}) => {
+
     switch (type) {
         case 'ADD_FIELD':
             return {
@@ -18,7 +19,7 @@ export const reducer = (state, {type, payload}) => {
                 ...state,
                 fields: {
                     [payload.name]: {
-                        value,
+                        value: payload.value,
                         touched: true
                     }
                 },
@@ -29,7 +30,8 @@ export const reducer = (state, {type, payload}) => {
             return {
                 ...state,
                 fields: {
-                    [paylaod.name]: {
+                    [payload.name]: {
+                        ...state.fields[payload.name],
                         error: payload.errors
                     }
                 },
@@ -53,4 +55,5 @@ export const reducer = (state, {type, payload}) => {
         default:
             return { ...state }
     }
+    return {}
 }

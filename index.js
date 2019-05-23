@@ -1,3 +1,3 @@
 import { useForm } from './useForm'
 
-export default { useForm }
+export default useForm
