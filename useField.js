@@ -19,12 +19,12 @@ export const useField = (fieldName, validators) => {
     const onChange = ( value ) => {
         const errors = validate(value)
         if ( !errors ) {
-            dispatch(changeValue({value, name}))
+            dispatch(changeValue(value, name))
             dispatch(setFieldErrors({errors: null, name}))
             //this has to change value & set touched
         } else {
-            dispatch(changeValue({value, name}))
-            dispatch(setFieldErrors({errors, name}))
+            dispatch(changeValue(value, name))
+            dispatch(setFieldErrors(errors, name))
             // changes value & sets errors
         }
     }

@@ -2,16 +2,52 @@
 
 export const reducer = (state, {type, payload}) => {
     switch (type) {
-        case 'username':
+        case 'ADD_FIELD':
             return {
-                state: username,
-                playload
+                ...state,
+                fields: {
+                    ...state.fields,
+                    [payload]: {
+                        touched: false
+                    }
+                }
             }
 
-        case 'pass':
+        case 'CHANGE_VALUE':
             return {
-                state: password,
-                payload
+                ...state,
+                fields: {
+                    [payload.name]: {
+                        value,
+                        touched: true
+                    }
+                },
+                pristine: false
+            }
+
+        case 'SET_ERROR':
+            return {
+                ...state,
+                fields: {
+                    [paylaod.name]: {
+                        error: payload.errors
+                    }
+                },
+                hasError: !!payload.errors
+            }
+
+        case 'CLEAR_FORM':
+            const newState = { ...state }
+            const fields = Object.keys(state.fields)
+            fields.forEach(field => newState = {
+                ...newState,
+                fields: {
+                    ...newState.fields,
+                    [field]: {}
+                }
+            })
+            return {
+                ...newState
             }
     
         default:
