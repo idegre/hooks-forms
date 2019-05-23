@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer, Fragment } from 'react'
 import { reducer } from './reducer'
 import { useField } from './useField'
 
@@ -13,10 +13,8 @@ export const useForm = () => {
     }
     
     const [store, dispatch] = useReducer(reducer, initialState)
-    // The context must be in context folder cause should be global
-    const Context = React.createContext( {form: { ...store }} );
 
-    FormProvider = ({ children }) => <Context.Provider> { ...children } </Context.Provider>//this injects the form props into the component
+    FormProvider = ({ children }) => <Fragment> { children.map( Child => <Child {...store} />) } </Fragment>//this injects the form props into the component
 
     return [useField, FormProvider, store]
 }
